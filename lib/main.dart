@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'blog_item.dart';
-import 'blog_item_screen.dart';
+//import 'blog_item.dart';
+//import 'blog_item_screen.dart';
 import 'blog_list_screen.dart';
-import 'database_helper.dart';
+//import 'database_helper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Blog Appp',
+      title: 'Blog App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

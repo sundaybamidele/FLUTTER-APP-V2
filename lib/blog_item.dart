@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
-
 class BlogItem {
-  int? id; // Added nullable ID for database usage
+  static int _counter = 0;
+
+  int id; // Updated to include id property
   String title;
   DateTime date;
   String body;
@@ -18,9 +18,13 @@ class BlogItem {
     required this.quantity,
     required this.status,
     this.deleted = false,
-  });
+    int? id, // Added optional id parameter
+  }) : id = id ??
+            _counter++; // Assign id or auto-increment _counter if id is null
 
-  // Convert BlogItem to Map object
+  // Other methods and properties...
+
+  // Convert BlogItem to Map for database operations
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -34,9 +38,10 @@ class BlogItem {
     };
   }
 
-  // Create BlogItem object from a Map
-  factory BlogItem.fromMap(Map<String, dynamic> map) {
+  // Create BlogItem from Map for database operations
+  static BlogItem fromMap(Map<String, dynamic> map) {
     return BlogItem(
+      id: map['id'],
       title: map['title'],
       date: DateTime.parse(map['date']),
       body: map['body'],
