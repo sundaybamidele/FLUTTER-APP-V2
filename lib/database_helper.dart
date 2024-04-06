@@ -27,9 +27,9 @@ class DatabaseHelper {
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute('''
       CREATE TABLE blog_items(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id int PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
-        date INTEGER NOT NULL,
+        date TEXT NOT NULL,
         body TEXT NOT NULL,
         imageUrl TEXT,
         quantity INTEGER NOT NULL,

@@ -30,7 +30,7 @@ class BlogListScreenState extends State<BlogListScreen> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Stock Mgt App (20304954)'),
+          title: const Text('Stock Mgt App (2304954)'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Total'),
