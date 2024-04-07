@@ -23,7 +23,7 @@ class BlogItem {
     return {
       'id': id,
       'title': title,
-      'date': date.millisecondsSinceEpoch,
+      'date': date.toIso8601String(),
       'body': body,
       'imageUrl': imageUrl,
       'quantity': quantity,
@@ -35,7 +35,7 @@ class BlogItem {
   static BlogItem fromMap(Map<String, dynamic> map) {
     return BlogItem(
       title: map['title'],
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
+      date: DateTime.parse(map["date"]),
       body: map['body'],
       imageUrl: map['imageUrl'],
       quantity: map['quantity'],

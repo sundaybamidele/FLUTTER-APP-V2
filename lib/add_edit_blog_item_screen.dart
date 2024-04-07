@@ -36,8 +36,7 @@ class AddEditBlogItemScreenState extends State<AddEditBlogItemScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text(widget.blogItem == null ? 'Add Blog Item' : 'Edit Blog Item'),
+        title: Text(widget.blogItem == null ? 'Add Blog Item' : 'Edit Blog Item'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -68,11 +67,9 @@ class AddEditBlogItemScreenState extends State<AddEditBlogItemScreen> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () async {
-                final pickedFile =
-                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
                 setState(() {
-                  _imageFile =
-                      pickedFile != null ? File(pickedFile.path) : null;
+                  _imageFile = pickedFile != null ? File(pickedFile.path) : null;
                 });
               },
               child: const Text('Select Image'),
@@ -80,8 +77,7 @@ class AddEditBlogItemScreenState extends State<AddEditBlogItemScreen> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                if (_titleController.text.isNotEmpty &&
-                    _bodyController.text.isNotEmpty) {
+                if (_titleController.text.isNotEmpty && _bodyController.text.isNotEmpty) {
                   Navigator.pop(
                     context,
                     BlogItem(
