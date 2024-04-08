@@ -1,6 +1,6 @@
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'blog_item.dart';
+import 'package:path/path.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._privateConstructor();
@@ -27,7 +27,7 @@ class DatabaseHelper {
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute('''
       CREATE TABLE blog_items(
-        id int PRIMARY KEY AUTOINCREMENT,
+        id integer PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         date TEXT NOT NULL,
         body TEXT NOT NULL,
@@ -54,8 +54,7 @@ class DatabaseHelper {
 
   Future<int> updateBlogItem(BlogItem blogItem) async {
     Database db = await database;
-    return await db.update('blog_items', blogItem.toMap(),
-        where: 'id = ?', whereArgs: [blogItem.id]);
+    return await db.update('blog_items', blogItem.toMap(), where: 'id = ?', whereArgs: [blogItem.id]);
   }
 
   Future<int> deleteBlogItem(int id) async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sunday_blog_app/database_helper.dart';
 import 'add_edit_blog_item_screen.dart';
 import 'blog_item.dart';
 import 'blog_item_screen.dart';
@@ -14,14 +15,20 @@ class BlogListScreen extends StatefulWidget {
 }
 
 class BlogListScreenState extends State<BlogListScreen> {
-  final List<BlogItem> _blogItems = [];
+  late List<BlogItem> _blogItems = [];
   late List<BlogItem> _filteredItems;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
+    getBlog();
     super.initState();
     _filteredItems = List.from(_blogItems);
+  }
+
+  getBlog() async {
+    _blogItems = await DatabaseHelper().getBlogItems();
+    setState(() {});
   }
 
   @override
@@ -92,6 +99,7 @@ class BlogListScreenState extends State<BlogListScreen> {
               setState(() {
                 _blogItems.add(newBlogItem);
                 _filteredItems = List.from(_blogItems);
+                DatabaseHelper().insertBlogItem(newBlogItem);
               });
             }
           },
@@ -106,11 +114,9 @@ class BlogListScreenState extends State<BlogListScreen> {
     if (tabIndex == 0) {
       filteredItems = items;
     } else if (tabIndex == 1) {
-      filteredItems =
-          items.where((item) => item.quantity > 0 && !item.deleted).toList();
+      filteredItems = items.where((item) => item.quantity > 0 && !item.deleted).toList();
     } else if (tabIndex == 2) {
-      filteredItems =
-          items.where((item) => item.quantity == 0 && !item.deleted).toList();
+      filteredItems = items.where((item) => item.quantity == 0 && !item.deleted).toList();
     } else if (tabIndex == 3) {
       filteredItems = items.where((item) => item.deleted).toList();
     }
@@ -160,8 +166,7 @@ class BlogListScreenState extends State<BlogListScreen> {
                         final updatedBlogItem = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                AddEditBlogItemScreen(blogItem: blogItem),
+                            builder: (context) => AddEditBlogItemScreen(blogItem: blogItem),
                           ),
                         );
                         if (updatedBlogItem != null) {
@@ -219,9 +224,7 @@ class BlogListScreenState extends State<BlogListScreen> {
   void _filterItems(String query) {
     setState(() {
       _filteredItems = _blogItems
-          .where((item) =>
-              item.title.toLowerCase().contains(query.toLowerCase()) ||
-              item.body.toLowerCase().contains(query.toLowerCase()))
+          .where((item) => item.title.toLowerCase().contains(query.toLowerCase()) || item.body.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
